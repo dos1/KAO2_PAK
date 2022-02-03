@@ -50,7 +50,7 @@ int main(int argc, char** argv)
             {
                 if ((common_path.back() != '/') && (common_path.back() != '\\'))
                 {
-                    common_path += '\\';
+                    common_path += '/';
                 }
             }
 
@@ -71,8 +71,6 @@ int main(int argc, char** argv)
             }
 
             /* Iterate through every argument */
-
-            SetConsoleTitle(TEXT("Kao-2 Unpacker - Unpacking..."));
 
             for (int i = 1; (i < argc) && no_errors; i++)
             {
@@ -100,8 +98,6 @@ int main(int argc, char** argv)
 
             /* Iterate through every argument */
 
-            SetConsoleTitle(TEXT("Kao-2 Unpacker - Repacking..."));
-
             for (int i = 1; (i < argc) && no_errors; i++)
             {
                 std::cout << "\n --------------------------------"
@@ -125,8 +121,6 @@ int main(int argc, char** argv)
     }
 
     /* The end :) */
-
-    SetConsoleTitle(TEXT("Kao-2 Unpacker - Finished!"));
 
     std::cout << "\n --------------------------------"
         << "\n (press any key to close)"

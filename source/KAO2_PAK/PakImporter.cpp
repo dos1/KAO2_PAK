@@ -1,5 +1,7 @@
 #include <KAO2_PAK/PakImporter.h>
 
+#include <regex>
+#include <cstring>
 
 ////////////////////////////////////////////////////////////////
 // PAK IMPORTER - initialize
@@ -323,7 +325,7 @@ bool PakImporter::createArchive()
 
     if ((MediaDir.back() != '/') && (MediaDir.back() != '\\'))
     {
-        MediaDir += '\\';
+        MediaDir += '/';
     }
 
     /* Try to open the PAK archive */
@@ -493,6 +495,7 @@ bool PakImporter::importData()
 bool PakImporter::readItem(int32_t &filesize, char* filename)
 {
     std::string path = MediaDir + filename;
+    path = std::regex_replace(path, std::regex("\\\\"), "/");
 
     /* Write info to console */
 

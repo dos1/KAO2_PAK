@@ -6,6 +6,3 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
-#include <direct.h>
-#include <Windows.h>

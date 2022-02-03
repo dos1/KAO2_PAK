@@ -1,5 +1,9 @@
 #include <KAO2_PAK/PakExporter.h>
 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <cstring>
+#include <regex>
 
 ////////////////////////////////////////////////////////////////
 // PAK EXPORTER - initialize
@@ -96,7 +100,7 @@ void PakExporter::getPakFilenameFromPath()
 
     if (OutputDir.length() <= 0)
     {
-        OutputDir = temp.substr(0, c1 > c2 ? c1 : c2) + PakName + '\\';
+        OutputDir = temp.substr(0, c1 > c2 ? c1 : c2) + PakName + '/';
     }
 }
 
@@ -216,7 +220,7 @@ bool PakExporter::openAndCheckArchive()
 
     /* Try to open log file */
     
-    _mkdir(OutputDir.c_str());
+    mkdir(OutputDir.c_str(), 0777);
 
     if (SaveLog)
     {
@@ -435,6 +439,8 @@ bool PakExporter::saveItem(int32_t filesize, char* filename)
 
     /* Create output directories */
 
+    path = std::regex_replace(path, std::regex("\\\\"), "/");
+
     for (char* p = (char*)path.c_str(); (*p); p++)
     {
         if (((*p) == '/') || ((*p) == '\\'))
@@ -442,7 +448,7 @@ bool PakExporter::saveItem(int32_t filesize, char* filename)
             temp = (*p);
             (*p) = 0x00;
 
-            _mkdir(path.c_str());
+            mkdir(path.c_str(), 0777);
 
             (*p) = temp;
         }
